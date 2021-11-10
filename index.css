@@ -11,6 +11,11 @@
     width: 30px;
 }
 
+.lesson-image{
+    width:70px;
+    height: auto;
+}
+
 *{
     margin:0;
     padding:0;

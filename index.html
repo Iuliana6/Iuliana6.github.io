@@ -15,6 +15,7 @@
         <p>{{lesson.location}}</p>
         <p>{{lesson.price}}</p>
         <p>{{lesson.space}}</p>
+        <img class="lesson-image" :src="lesson.imageURL" alt="">
         <button v-on:click="addToCart(lesson)">Click Me</button>
     </li>
 </ul>
