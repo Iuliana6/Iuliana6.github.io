@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VueJs Instance</title>
+    <script type="text/javascript" src="vue.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="header">
+    <img id="checkoutButton" src="images/checkout-icon.png">
+</div>
+<ul id="lesson-list">
+    <li v-for="lesson in lessons">
+        <p>{{lesson.subject}}</p>
+        <p>{{lesson.location}}</p>
+        <p>{{lesson.price}}</p>
+        <p>{{lesson.space}}</p>
+        <button v-on:click="addToCart(lesson)">Click Me</button>
+    </li>
+</ul>
+<script type="text/javascript" src="lessons.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
