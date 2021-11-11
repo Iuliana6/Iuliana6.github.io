@@ -1,23 +1,30 @@
 let lessons=[
     {
-        subject:"Math",
+        subject:"Subject0",
         location:"Location",
-        price:80,
-        space:10,
+        price:55,
+        space:5,
         imageURL:"images/math.png"
     },
     {
-        subject:"Subject",
+        subject:"Subject1",
         location:"Location",
         price:67,
-        space:10,
+        space:5,
         imageURL:"images/image0"
     },
     {
-        subject:"Subject",
+        subject:"Subject2",
         location:"Location",
         price:75,
-        space:10,
+        space:5,
+        imageURL:"images/image0"
+    },
+    {
+        subject:"Subject3",
+        location:"Location2",
+        price:20,
+        space:5,
         imageURL:"images/image0"
     },
 

@@ -6,24 +6,46 @@ var vue = new Vue({
         lessonListShown: true,
         cartShown: false,
         checkoutButtonShown: false,
-        sortAscending: true,
-        sortingCriteria:["Subject","Location","Price","Availability"],
-        sortingOrder:["Ascending","Descending"],
-        selectedCriteria:"Subject",
-        selectedOrder:"Ascending"
+        sortingCriteria: ["Subject", "Location", "Price", "Availability"],
+        sortingOrder: ["Ascending", "Descending"],
+        selectedCriteria: "Subject",
+        selectedOrder: "Ascending"
     },
     computed: {
         sortedLessons() {
-            let compare=(a, b)=> {
+            let ascending=this.selectedOrder==="Ascending"
+            let criteria=this.selectedCriteria
+            let compare = (a, b) => {
                 //if ascending is false flip the order
-                if (a.price > b.price) {
-                    return this.sortAscending ? 1 : -1;
+                switch (criteria) {
+                    case "Subject":
+                        console.log(a.subject,b.subject,a.subject.localeCompare(b.subject))
+                        if(a.subject.localeCompare(b.subject)===1) return ascending ? 1 : -1;
+                        if (a.subject.localeCompare(b.subject)===-1) return ascending ? -1 : 1;
+                        return 0;
+                    case "Location":
+                        if(a.location.localeCompare(b.location)===1) return ascending ? 1 : -1;
+                        if (a.location.localeCompare(b.location)===-1) return ascending ? -1 : 1;
+                        return 0;
+                    case "Price":
+                        if (a.price > b.price) return ascending ? 1 : -1;
+                        if (a.price < b.price) return ascending ? -1 : 1;
+                        return 0;
+                    case "Availability":
+                        if (a.space > b.space) return ascending ? 1 : -1;
+                        if (a.space < b.space) return ascending ? -1 : 1;
+                        return 0;
                 }
-                if (a.price < b.price) return this.sortAscending ? -1 : 1;
+                if (a.price > b.price) {
+                    return ascending ? 1 : -1;
+                }
+                if (a.price < b.price) return ascending ? -1 : 1;
                 return 0;
             }
 
-            return this.lessons.sort(compare);
+            let result=this.lessons.sort(compare)
+            console.log(this.selectedCriteria,this.selectedOrder,result.map(o=>o.subject))
+            return result
         }
     },
     methods: {

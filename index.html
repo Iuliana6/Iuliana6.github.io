@@ -14,10 +14,10 @@
     <div id="filters">
         <h1>Sort</h1>
         <select id="sorting-criteria" v-model="selectedCriteria">
-            <option v-for="criteria in sortingCriteria" :value="criteria">{{criteria}}</option>
+            <option v-for="criteria in sortingCriteria" v-bind:value="criteria">{{criteria}}</option>
         </select>
         <select id="sorting-order" v-model="selectedOrder">
-            <option v-for="order in sortingOrder" :value="order">{{order}}</option>
+            <option v-for="order in sortingOrder" v-bind:value="order">{{order}}</option>
         </select>
     </div>
     <ul id="lesson-list">
