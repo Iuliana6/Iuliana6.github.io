@@ -11,6 +11,9 @@
 <div id="header">
     <img v-on:click="displayCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
 </div>
+    <div id="filters">
+
+    </div>
     <ul id="lesson-list">
         <li v-if="lessonListShown" v-for="lesson in lessons">
             <p>{{lesson.subject}}</p>
@@ -18,7 +21,7 @@
             <p>{{lesson.price}}</p>
             <p>{{lesson.space}}</p>
             <img class="lesson-image" :src="lesson.imageURL" alt="">
-            <button v-on:click="addToCart(lesson)">Click Me</button>
+            <button v-on:click="addToCart(lesson)">Add to cart</button>
         </li>
     </ul>
     <ul id="cart">
@@ -30,6 +33,16 @@
             <img class="lesson-image" :src="lesson.imageURL" alt="">
         </li>
     </ul>
+    <div v-if="cartShown">
+        <h1>Checkout</h1>
+        <div id="checkout">
+            <p>Name:</p>
+            <input type="text" id="name-input">
+            <p>Phone:</p>
+            <input type="text" id="phone-input">
+            <button v-on:click="checkout()">Checkout</button>
+        </div>
+    </div>
 </div>
 </div>
 

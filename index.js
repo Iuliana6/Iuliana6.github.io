@@ -42,8 +42,27 @@ var vue = new Vue({
             this.checkoutButtonShown=true
         },
         displayCart:function f(){
-            this.cartShown=true;
-            this.lessonListShown=false;
+            this.cartShown=!this.cartShown;
+            this.lessonListShown=!this.lessonListShown;
+        },
+        checkout:function f(){
+            let name=document.getElementById("name-input").value
+            let phoneNumber=document.getElementById("phone-input").value
+            for(let i=0;i<name.length;i++){
+                let c=name.charAt(i)
+                if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||c===' ')){
+                    alert("Invalid name")
+                    return;
+                }
+            }
+            for(let i=0;i<phoneNumber.length;i++){
+                let c=phoneNumber.charAt(i)
+                if(!(c>='0'&&c<='9')){
+                    alert("Invalid phone number")
+                    return
+                }
+            }
+            alert("Checkout successfull")
         }
     }
 })
