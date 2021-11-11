@@ -41,10 +41,21 @@ var vue = new Vue({
             //show the checkout button
             this.checkoutButtonShown=true
         },
-        displayCart:function f(){
+        removeFromCart:function f(lesson){
+            this.lessons.forEach(l=>{
+                //add quantity back to lesson list
+                if(l.subject===lesson.subject){
+                    l.space+=lesson.quantity
+                }
+            })
+            //remove lesson from cart
+            this.cart=this.cart.filter(l=>l.subject!==lesson.subject)
+        },
+        toggleCart:function f(){
             this.cartShown=!this.cartShown;
             this.lessonListShown=!this.lessonListShown;
         },
+
         checkout:function f(){
             let name=document.getElementById("name-input").value
             let phoneNumber=document.getElementById("phone-input").value

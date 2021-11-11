@@ -9,7 +9,7 @@
 
 <div id="container">
 <div id="header">
-    <img v-on:click="displayCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
+    <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
 </div>
     <div id="filters">
 
@@ -31,6 +31,7 @@
             <p>{{lesson.price}}</p>
             <p>{{lesson.quantity}}</p>
             <img class="lesson-image" :src="lesson.imageURL" alt="">
+            <button v-on:click="removeFromCart(lesson)">Remove from cart</button>
         </li>
     </ul>
     <div v-if="cartShown">
