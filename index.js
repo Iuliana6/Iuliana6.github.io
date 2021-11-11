@@ -8,7 +8,9 @@ var vue = new Vue({
         checkoutButtonShown: false,
         sortAscending: true,
         sortingCriteria:["Subject","Location","Price","Availability"],
-        sortingOrder:["Ascending","Descending"]
+        sortingOrder:["Ascending","Descending"],
+        selectedCriteria:"Subject",
+        selectedOrder:"Ascending"
     },
     computed: {
         sortedLessons() {
