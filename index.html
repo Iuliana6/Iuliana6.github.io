@@ -12,10 +12,16 @@
     <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
 </div>
     <div id="filters">
-
+        <h1>Sort</h1>
+        <select id="sorting-criteria">
+            <option v-for="criteria in sortingCriteria" :value="criteria">{{criteria}}</option>
+        </select>
+        <select id="sorting-order">
+            <option v-for="order in sortingOrder" :value="order">{{order}}</option>
+        </select>
     </div>
     <ul id="lesson-list">
-        <li v-if="lessonListShown" v-for="lesson in lessons">
+        <li v-if="lessonListShown" v-for="lesson in sortedLessons">
             <p>{{lesson.subject}}</p>
             <p>{{lesson.location}}</p>
             <p>{{lesson.price}}</p>
