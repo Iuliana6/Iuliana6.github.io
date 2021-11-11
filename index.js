@@ -1,32 +1,49 @@
-let displayedLessons=lessons
-let cart={}
-let checkoutAvailable=false
-const checkoutButton=document.getElementById("checkoutButton")
-checkoutButton.style.visibility="hidden"
-checkoutButton.onclick=()=>{
-    alert("DA")
-}
-var lessonList = new Vue({
-    el: '#lesson-list',
+
+var vue = new Vue({
+    el: '#container',
     data: {
-        lessons: displayedLessons
+        lessons: lessons,
+        cart:[],
+        lessonListShown:true,
+        cartShown:false,
+        checkoutButtonShown:false,
     },
-    methods:{
-        addToCart: function myMethod(lesson) {
-            if(lesson.space===0){
+    methods: {
+        addToCart: function f(lesson) {
+            if (lesson.space === 0) {
                 return
             }
-            let reservedQuantity=cart[lesson.subject]
-            if(typeof reservedQuantity==="undefined"){
-                reservedQuantity=0
+
+            //where the lesson is found in the cart
+            let lessonIndex = -1
+            this.cart.forEach((cartLesson, i) => {
+                if (cartLesson.subject === lesson.subject) {
+                    lessonIndex = i
+                }
+            })
+            //if item was not found
+            if (lessonIndex === -1) {
+                //add lesson to the cart
+                this.cart.push({
+                    subject:lesson.subject,
+                    location:lesson.location,
+                    price:lesson.price,
+                    quantity:1,
+                    imageURL:lesson.imageURL
+                })
+            } else {
+                //if already found increase quantity
+                this.cart[lessonIndex].quantity += 1
             }
-            cart[lesson.subject]=reservedQuantity+1
-            lesson.space=lesson.space-1
-            if(checkoutAvailable===false){
-                checkoutAvailable=true
-                //show the checkout button
-                checkoutButton.style.visibility="visible"
-            }
+
+            lesson.space = lesson.space - 1
+
+            //show the checkout button
+            this.checkoutButtonShown=true
+        },
+        displayCart:function f(){
+            this.cartShown=true;
+            this.lessonListShown=false;
         }
     }
 })

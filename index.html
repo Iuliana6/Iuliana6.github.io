@@ -6,19 +6,33 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+
+<div id="container">
 <div id="header">
-    <img id="checkoutButton" src="images/checkout-icon.png">
+    <img v-on:click="displayCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
 </div>
-<ul id="lesson-list">
-    <li v-for="lesson in lessons">
-        <p>{{lesson.subject}}</p>
-        <p>{{lesson.location}}</p>
-        <p>{{lesson.price}}</p>
-        <p>{{lesson.space}}</p>
-        <img class="lesson-image" :src="lesson.imageURL" alt="">
-        <button v-on:click="addToCart(lesson)">Click Me</button>
-    </li>
-</ul>
+    <ul id="lesson-list">
+        <li v-if="lessonListShown" v-for="lesson in lessons">
+            <p>{{lesson.subject}}</p>
+            <p>{{lesson.location}}</p>
+            <p>{{lesson.price}}</p>
+            <p>{{lesson.space}}</p>
+            <img class="lesson-image" :src="lesson.imageURL" alt="">
+            <button v-on:click="addToCart(lesson)">Click Me</button>
+        </li>
+    </ul>
+    <ul id="cart">
+        <li v-if="cartShown" v-for="lesson in cart">
+            <p>{{lesson.subject}}</p>
+            <p>{{lesson.location}}</p>
+            <p>{{lesson.price}}</p>
+            <p>{{lesson.quantity}}</p>
+            <img class="lesson-image" :src="lesson.imageURL" alt="">
+        </li>
+    </ul>
+</div>
+</div>
+
 <script type="text/javascript" src="lessons.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </body>
