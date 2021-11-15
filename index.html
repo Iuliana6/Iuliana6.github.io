@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>VueJs Instance</title>
+    <title>Lessons</title>
     <script type="text/javascript" src="vue.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
 <div id="container">
-<div id="header">
-    <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
-</div>
+    <div id="header">
+        <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
+    </div>
     <div id="search-container">
         <input type="text" v-model="searchString" placeholder="Search...">
     </div>
@@ -23,35 +23,37 @@
             <option v-for="order in sortingOrder" v-bind:value="order">{{order}}</option>
         </select>
     </div>
-    <ul id="lesson-list">
+    <ul id="lesson-list" class="lesson-container">
         <li v-if="lessonListShown" v-for="lesson in sortedLessons">
-            <p>{{lesson.subject}}</p>
-            <p>{{lesson.location}}</p>
-            <p>{{lesson.price}}</p>
-            <p>{{lesson.space}}</p>
+            <div>
+                <p>Subject: {{lesson.subject}}</p>
+                <p>Location: {{lesson.location}}</p>
+                <p>Price: £{{lesson.price}}</p>
+                <p>Spaces: {{lesson.space}}</p>
+                <button v-on:click="addToCart(lesson)">Add to cart</button>
+            </div>
             <img class="lesson-image" :src="lesson.imageURL" alt="">
-            <button v-on:click="addToCart(lesson)">Add to cart</button>
         </li>
     </ul>
-    <ul id="cart">
+    <ul id="cart" class="lesson-container">
         <li v-if="cartShown" v-for="lesson in cart">
-            <p>{{lesson.subject}}</p>
-            <p>{{lesson.location}}</p>
-            <p>{{lesson.price}}</p>
-            <p>{{lesson.quantity}}</p>
+            <div>
+                <p>Subject: {{lesson.subject}}</p>
+                <p>Location: {{lesson.location}}</p>
+                <p>Price: £{{lesson.price}}</p>
+                <p>Quantity: {{lesson.quantity}}</p>
+                <button v-on:click="removeFromCart(lesson)">Remove from cart</button>
+            </div>
             <img class="lesson-image" :src="lesson.imageURL" alt="">
-            <button v-on:click="removeFromCart(lesson)">Remove from cart</button>
         </li>
     </ul>
-    <div v-if="cartShown">
+    <div id="checkout" v-if="cartShown">
         <h1>Checkout</h1>
-        <div id="checkout">
-            <p>Name:</p>
-            <input type="text" id="name-input">
-            <p>Phone:</p>
-            <input type="text" id="phone-input">
-            <button v-on:click="checkout()">Checkout</button>
-        </div>
+        <p>Name:</p>
+        <input type="text" id="name-input">
+        <p>Phone:</p>
+        <input type="text" id="phone-input">
+        <button v-on:click="checkout()">Checkout</button>
     </div>
 </div>
 </div>

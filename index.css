@@ -11,12 +11,81 @@
     width: 30px;
 }
 
-.lesson-image{
-    width:70px;
-    height: auto;
+#checkout{
+    margin:10px 30%;
+    display: flex;
+    flex-direction: column;
+}
+* > button{
+    padding:10px 10px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+* > button:hover{
+    background-color: #f56fa7;
+    color:white;
+    border-color: #f56fa7;
+}
+#checkout > button{
+    margin: 10px 0;
 }
 
+.lesson-image{
+    width:150px;
+    height: 150px;
+    padding:10px;
+    margin:0;
+}
+#search-container{
+    width: 100%;
+}
+#search-container > input{
+    width: 100%;
+}
+#filters{
+    margin:5px 0;
+    display: flex;
+    flex-direction: row;
+}
+#filters > h1{
+    font-size: 25px;
+    margin: 0 5px;
+}
+#filters > select{
+    margin:0 5px;
+}
+.lesson-container{
+    margin-top:30px;
+    height:100%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+}
+.lesson-container > li{
+    width:360px;
+    background-color: aliceblue;
+    border-style: solid;
+    border-color: dimgray;
+    border-radius: 20px;
+    padding:10px;
+    display:flex;
+    flex-direction: row;
+}
+.lesson-container > li > div{
+    width:180px;
+    flex-direction: column;
+}
+
+.lesson-container > li > div >button{
+    margin:10px 0;
+}
 *{
     margin:0;
     padding:0;
+}
+body *{
+    font-family: Verdana, sans-serif;
 }

@@ -105,6 +105,10 @@ var vue = new Vue({
         checkout: function f() {
             let name = document.getElementById("name-input").value
             let phoneNumber = document.getElementById("phone-input").value
+            if(name===""||phoneNumber===""){
+                alert("Please fill out all the fields")
+                return;
+            }
             for (let i = 0; i < name.length; i++) {
                 let c = name.charAt(i)
                 if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c === ' ')) {
