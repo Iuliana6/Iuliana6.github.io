@@ -11,6 +11,9 @@
 <div id="header">
     <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
 </div>
+    <div id="search-container">
+        <input type="text" v-model="searchString" placeholder="Search...">
+    </div>
     <div id="filters">
         <h1>Sort</h1>
         <select id="sorting-criteria" v-model="selectedCriteria">

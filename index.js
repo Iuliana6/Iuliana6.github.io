@@ -9,7 +9,8 @@ var vue = new Vue({
         sortingCriteria: ["Subject", "Location", "Price", "Availability"],
         sortingOrder: ["Ascending", "Descending"],
         selectedCriteria: "Subject",
-        selectedOrder: "Ascending"
+        selectedOrder: "Ascending",
+        searchString: "",
     },
     computed: {
         sortedLessons() {
@@ -19,7 +20,6 @@ var vue = new Vue({
                 //if ascending is false flip the order
                 switch (criteria) {
                     case "Subject":
-                        console.log(a.subject,b.subject,a.subject.localeCompare(b.subject))
                         if(a.subject.localeCompare(b.subject)===1) return ascending ? 1 : -1;
                         if (a.subject.localeCompare(b.subject)===-1) return ascending ? -1 : 1;
                         return 0;
@@ -42,9 +42,15 @@ var vue = new Vue({
                 if (a.price < b.price) return ascending ? -1 : 1;
                 return 0;
             }
-
+            //sort by selected criteria
             let result=this.lessons.sort(compare)
-            console.log(this.selectedCriteria,this.selectedOrder,result.map(o=>o.subject))
+            //filter using search string
+            result=result.filter((lesson)=>{
+                    if(this.searchString===""){
+                        return true
+                    }
+                    return lesson.subject.includes(this.searchString) || lesson.location.includes(this.searchString);
+                })
             return result
         }
     },
