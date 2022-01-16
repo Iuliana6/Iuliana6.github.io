@@ -1,4 +1,4 @@
-const apiUrl = "https://wad-cw2.herokuapp.com/"
+const apiUrl = "https://wad-cw2.herokuapp.com"
 var vue = new Vue({
     el: '#container',
     data: {
