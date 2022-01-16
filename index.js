@@ -1,7 +1,8 @@
+const apiUrl = "https://wad-cw2.herokuapp.com/"
 var vue = new Vue({
     el: '#container',
     data: {
-        lessons: lessons,
+        lessons: [],
         cart: [],
         lessonListShown: true,
         cartShown: false,
@@ -11,50 +12,33 @@ var vue = new Vue({
         selectedCriteria: "Subject",
         selectedOrder: "Ascending",
         searchString: "",
+        sortedLessons: [],
     },
-    computed: {
-        sortedLessons() {
-            let ascending=this.selectedOrder==="Ascending"
-            let criteria=this.selectedCriteria
-            let compare = (a, b) => {
-                //if ascending is false flip the order
-                switch (criteria) {
-                    case "Subject":
-                        if(a.subject.localeCompare(b.subject)===1) return ascending ? 1 : -1;
-                        if (a.subject.localeCompare(b.subject)===-1) return ascending ? -1 : 1;
-                        return 0;
-                    case "Location":
-                        if(a.location.localeCompare(b.location)===1) return ascending ? 1 : -1;
-                        if (a.location.localeCompare(b.location)===-1) return ascending ? -1 : 1;
-                        return 0;
-                    case "Price":
-                        if (a.price > b.price) return ascending ? 1 : -1;
-                        if (a.price < b.price) return ascending ? -1 : 1;
-                        return 0;
-                    case "Availability":
-                        if (a.space > b.space) return ascending ? 1 : -1;
-                        if (a.space < b.space) return ascending ? -1 : 1;
-                        return 0;
-                }
-                if (a.price > b.price) {
-                    return ascending ? 1 : -1;
-                }
-                if (a.price < b.price) return ascending ? -1 : 1;
-                return 0;
-            }
-            //sort by selected criteria
-            let result=this.lessons.sort(compare)
-            //filter using search string
-            result=result.filter((lesson)=>{
-                    if(this.searchString===""){
-                        return true
+    created: function () {
+        let that = this
+        fetch(apiUrl + '/lessons').then(
+            function (response) {
+                response.json().then(
+                    function (json) {
+                        that.lessons = json.result;
+                        that.sortedLessons = json.result;
                     }
-                    return lesson.subject.includes(this.searchString) || lesson.location.includes(this.searchString);
-                })
-            return result
-        }
+                )
+            })
     },
     methods: {
+        searchFn: function f() {
+            let that = this
+            fetch(apiUrl + '/search?searchString='+that.searchString, {
+            }).then(
+                function (response) {
+                    response.json().then(
+                        function (json) {
+                            that.sortedLessons=json.result
+                        }
+                    )
+                })
+        },
         addToCart: function f(lesson) {
             if (lesson.space === 0) {
                 return
@@ -105,7 +89,7 @@ var vue = new Vue({
         checkout: function f() {
             let name = document.getElementById("name-input").value
             let phoneNumber = document.getElementById("phone-input").value
-            if(name===""||phoneNumber===""){
+            if (name === "" || phoneNumber === "") {
                 alert("Please fill out all the fields")
                 return;
             }
@@ -123,7 +107,54 @@ var vue = new Vue({
                     return
                 }
             }
+            this.cart.forEach(lesson => {
+                fetch(apiUrl + "/order", {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        name: name,
+                        phoneNumber: phoneNumber,
+                        subject: lesson.subject,
+                        location: lesson.location,
+                        price: lesson.price,
+                        quantity: lesson.quantity,
+                        imageURL: lesson.imageURL
+                    }) // body data type must match "Content-Type" header
+                });
+                let newQuantity = this.lessons.filter(l => l.subject == lesson.subject)[0].space
+                console.log(newQuantity)
+                fetch(apiUrl + "/lessons", {
+                    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        subject: lesson.subject,
+                        location: lesson.location,
+                        price: lesson.price,
+                        quantity: newQuantity,
+                        imageURL: lesson.imageURL
+                    }) // body data type must match "Content-Type" header
+                });
+
+            })
+            this.cart = []
             alert("Checkout successfull")
+
         }
     }
 })

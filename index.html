@@ -12,7 +12,7 @@
         <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
     </div>
     <div id="search-container">
-        <input type="text" v-model="searchString" placeholder="Search...">
+        <input type="text" v-model="searchString" v-on:keyup="searchFn()" placeholder="Search...">
     </div>
     <div id="filters">
         <h1>Sort</h1>
