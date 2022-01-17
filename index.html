@@ -9,7 +9,7 @@
 
 <div id="container">
     <div id="header">
-        <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="images/checkout-icon.png">
+        <img v-on:click="toggleCart()" v-if="checkoutButtonShown" id="checkoutButton" src="https://wad-cw2.herokuapp.com/images/checkout-icon.png">
     </div>
     <div id="search-container">
         <input type="text" v-model="searchString" v-on:keyup="searchFn()" placeholder="Search...">
