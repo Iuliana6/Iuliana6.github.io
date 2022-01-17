@@ -32,7 +32,7 @@
                 <p>Spaces: {{lesson.space}}</p>
                 <button v-on:click="addToCart(lesson)">Add to cart</button>
             </div>
-            <img class="lesson-image" :src="lesson.imageURL" alt="">
+            <img class="lesson-image" :src="'https://wad-cw2.herokuapp.com/'+lesson.imageURL" alt="">
         </li>
     </ul>
     <ul id="cart" class="lesson-container">
@@ -58,7 +58,6 @@
 </div>
 </div>
 
-<script type="text/javascript" src="lessons.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
